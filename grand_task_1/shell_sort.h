@@ -1,4 +1,4 @@
-#include"config.h"
+#include"type.h"
 #include"cmp.h"
 
 void shell_sort(Type* arr, size_t size, comparator_t);

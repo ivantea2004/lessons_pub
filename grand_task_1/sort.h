@@ -1,4 +1,4 @@
-#include"config.h"
+#include"type.h"
 #include"cmp.h"
 
 typedef void(*sort_t)(Type*, size_t, comparator_t);

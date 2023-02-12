@@ -1,4 +1,4 @@
-#include"config.h"
+#include"type.h"
 
 typedef int(*comparator_t)(Type, Type);
 

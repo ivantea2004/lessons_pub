@@ -1,4 +1,4 @@
-#include"config.h"
+#include"type.h"
 #include<stdio.h>
 
 void read_arr(Type* arr, size_t size);

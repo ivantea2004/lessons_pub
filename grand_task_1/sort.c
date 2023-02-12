@@ -1,7 +1,7 @@
+#include<stdlib.h>
 #include"sort.h"
 #include"array_io.h"
 #include"swap.h"
-#include<stdlib.h>
 
 void execute_sort(sort_t sort, Type* arr, size_t size, comparator_t cmp, size_t* cmps, size_t* swaps)
 {

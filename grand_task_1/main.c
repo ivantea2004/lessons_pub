@@ -1,9 +1,6 @@
 #include<stdio.h>
-#include"config.h"
-#include"rand.h"
 #include"sort.h"
 #include"generate.h"
-#include"heap_sort.h"
 #include"bubble_sort.h"
 
 int main()

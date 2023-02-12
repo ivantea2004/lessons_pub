@@ -1,5 +1,5 @@
-#include"rand.h"
 #include<stdlib.h>
+#include"rand.h"
 #include<time.h>
 
 void init_rand()

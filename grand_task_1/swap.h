@@ -1,4 +1,4 @@
-#include"config.h"
+#include"type.h"
 
 void swap(Type*, Type*);
 
