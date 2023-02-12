@@ -10,7 +10,7 @@ int main()
 
 	init_rand();
 
-	test_sort(shell_sort, gen_rand, less, 10);
+	check_sort(shell_sort, gen_descending, less, 1000000);
 
 	return 0;
 }
