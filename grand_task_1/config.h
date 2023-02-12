@@ -5,7 +5,7 @@
 #define TEST_32 2
 #define TEST_64 3
 
-#define TEST_TYPE TEST_64
+#define TEST_TYPE TEST_32
 
 #if TEST_TYPE == TEST_64
 typedef int64_t Type;

@@ -7,3 +7,6 @@ void clear_comparations();
 
 int greater(Type, Type);
 int less(Type, Type);
+
+int greater_abs(Type, Type);
+int less_abs(Type, Type);

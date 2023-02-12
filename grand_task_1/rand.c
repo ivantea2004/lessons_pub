@@ -9,7 +9,7 @@ void init_rand()
 
 int32_t rand_int32()
 {
-	return rand();
+	return rand() - RAND_MAX / 2;
 }
 
 int64_t rand_int64()
