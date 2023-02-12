@@ -3,6 +3,7 @@
 typedef int(*comparator_t)(Type, Type);
 
 size_t get_comparations();
-size_t clear_comparations();
+void clear_comparations();
 
-extern comparator_t greater;
+int greater(Type, Type);
+int less(Type, Type);
