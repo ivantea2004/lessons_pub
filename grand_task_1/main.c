@@ -4,13 +4,14 @@
 #include"generate.h"
 #include"bubble_sort.h"
 #include"shell_sort.h"
+#include"heap_sort.h"
 
 int main()
 {
 
 	init_rand();
 
-	check_sort(shell_sort, gen_descending, less, 1000000);
+	check_sort(heap_sort, gen_rand, less, 1000000);
 
 	return 0;
 }
