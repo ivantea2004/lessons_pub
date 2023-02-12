@@ -1,3 +1,7 @@
+#pragma once
+#ifndef TYPE_H
+#define TYPE_H
+
 #include<stdint.h>
 #include<inttypes.h>
 #include"config.h"
@@ -17,3 +21,5 @@ typedef double Type;
 #else
 #error "Invalid TEST_TYPE"
 #endif
+
+#endif TYPE_H

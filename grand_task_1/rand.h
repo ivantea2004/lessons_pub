@@ -1,5 +1,9 @@
-#include"config.h"
+#pragma once
+#ifndef RAND_H
+#define RAND_H
+
 #include<stdint.h>
+#include"config.h"
 
 void init_rand();
 int32_t rand_int32();
@@ -15,3 +19,5 @@ double rand_double();
 #else
 #error "Invalid TEST_TYPE"
 #endif
+
+#endif RAND_H

@@ -1,5 +1,9 @@
-#include"config.h"
+#pragma once
+#ifndef ABS_H
+#define ABS_H
+
 #include<math.h>
+#include"config.h"
 
 #define abs_int32 abs
 #define abs_int64 llabs
@@ -14,3 +18,5 @@
 #else
 #error "Invalid TEST_TYPE"
 #endif
+
+#endif 
