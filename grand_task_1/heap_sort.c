@@ -35,7 +35,7 @@ void max_heapify(Type* arr, size_t at, size_t heap_size, comparator_t cmp)
 
 void build_max_heap(Type* arr, size_t size, comparator_t cmp)
 {
-	for (int64_t i = size / 2; i > 0; i--)
+	for (int64_t i = size / 2; i >= 0; i--)
 		max_heapify(arr, i, size, cmp);
 
 }
