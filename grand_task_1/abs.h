@@ -9,7 +9,7 @@
 #define abs_Type abs_int32
 #elif TEST_TYPE == TEST_64
 #define abs_Type abs_int64
-#elif TEST_TYPE == TEST_OOUBLE
+#elif TEST_TYPE == TEST_DOUBLE
 #define abs_Type abs_double
 #else
 #error "Invalid TEST_TYPE"

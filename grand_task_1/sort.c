@@ -41,3 +41,13 @@ void test_sort(sort_t sort, generator_t gen, comparator_t cmp, size_t size)
 	printf("Swaps: %"PRIuPTR", Cmps: %"PRIuPTR"\n", swaps, cmps);
 
 }
+
+void check_sort(sort_t sort, generator_t gen, comparator_t cmp, size_t size)
+{
+	size_t cmps, swaps;
+	Type* arr = malloc(sizeof(Type) * size);
+	gen(arr, size);
+	execute_sort(sort, arr, size, cmp, &cmps, &swaps);
+	free(arr);
+	printf("Swaps: %"PRIuPTR", Comps: %"PRIuPTR"\n", swaps, cmps);
+}

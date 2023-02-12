@@ -8,7 +8,7 @@ int main()
 
 	init_rand();
 
-	test_sort(bubble_sort, gen_rand, less_abs, 100);
+	test_sort(bubble_sort, gen_descending, less_abs, 10);
 
 	return 0;
 }
