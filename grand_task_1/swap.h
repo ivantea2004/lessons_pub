@@ -2,6 +2,7 @@
 #ifndef SWAP_H
 #define SWAP_H
 
+#include<stddef.h>
 #include"type.h"
 
 void swap(Type*, Type*);

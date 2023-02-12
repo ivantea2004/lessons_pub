@@ -8,4 +8,4 @@
 
 void shell_sort(Type* arr, size_t size, comparator_t);
 
-#endif SHELL_SORT_H
+#endif

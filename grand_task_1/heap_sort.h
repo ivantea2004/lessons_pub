@@ -8,4 +8,4 @@
 
 void heap_sort(Type* arr, size_t size, comparator_t);
 
-#endif HEAP_SORT_H
+#endif

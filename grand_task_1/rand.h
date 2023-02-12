@@ -20,4 +20,4 @@ double rand_double();
 #error "Invalid TEST_TYPE"
 #endif
 
-#endif RAND_H
+#endif

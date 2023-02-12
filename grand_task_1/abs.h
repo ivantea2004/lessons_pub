@@ -2,6 +2,7 @@
 #ifndef ABS_H
 #define ABS_H
 
+#include<stdlib.h>
 #include<math.h>
 #include"config.h"
 
@@ -19,4 +20,4 @@
 #error "Invalid TEST_TYPE"
 #endif
 
-#endif 
+#endif

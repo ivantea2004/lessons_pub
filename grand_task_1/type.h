@@ -22,4 +22,4 @@ typedef double Type;
 #error "Invalid TEST_TYPE"
 #endif
 
-#endif TYPE_H
+#endif
