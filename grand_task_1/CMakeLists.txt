@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.20)
 
 project(grand_task_1)
 
-add_executable(run main.c)
+FILE(GLOB headers ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+file(GLOB src ${CMAKE_CURRENT_SOURCE_DIR}/*.c)
+
+add_executable(run ${src} ${headers})
 
 target_compile_features(run PUBLIC c_std_99)
