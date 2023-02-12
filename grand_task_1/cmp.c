@@ -45,7 +45,7 @@ int less_abs(Type a, Type b)
 	return less(abs_Type(a), abs_Type(b));
 }
 
-int greate_abs(Type a, Type b)
+int greater_abs(Type a, Type b)
 {
 	return greater(abs_Type(a), abs_Type(b));
 }
