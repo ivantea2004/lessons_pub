@@ -7,14 +7,13 @@
 #include"shell_sort.h"
 #include"heap_sort.h"
 #include"test.h"
+#include"ui.h"
 
 #define INVALID_ARGS "Invalid arguments. Use -h for help."
-#define INVALID_IN "Invalid answer"
 #define HELP_MSG "-h Show this text\n"\
+"-t Test a sorting algorithm\n" \
 "-i Inspect a sorting algorithm\n" \
 "-c Compare two sorting algorithms" 
-
-#define NO_SELECT INT64_MAX
 
 #define SORTS_COUNT 3
 #define GENS_COUNT 3
@@ -27,61 +26,61 @@ generator_t gens[GENS_COUNT] = { gen_ascending, gen_descending, gen_rand };
 char* gen_names[GENS_COUNT] = { "ascending", "descending", "random" };
 
 comparator_t cmps[CMPS_COUNT] = { less, greater,less_abs, greater_abs };
-char* cmp_names[CMPS_COUNT] = { "less", "greater", "less by abs", "greater by abs" };
+char* cmp_names[CMPS_COUNT] = { "ascending", "descending", "ascening by absolute valud", "descending by absolute value" };
 
-
-size_t select_name_dialog(char** items_names, size_t items_count, char*name)
+sort_t* select_sort_dialog(char*name)
 {
-	printf("Select %s\n", name);
-	for (size_t i = 0; i < items_count; i++)
-		printf("%"PRIuPTR":%s\n", i + 1, items_names[i]);
-	size_t i;
-	
-	if (scanf("%"SCNuPTR, &i) != 1 || i < 1 || i > items_count)
-	{
-		printf(INVALID_IN"\n");
-		return NO_SELECT;
-	}
-	return i - 1;
+	size_t index = select_name_dialog(sort_names, SORTS_COUNT, name);
+	if(index == NO_SELECT)
+		return NULL;
+	return sorts + index;
 }
 
-int64_t select_range_dialog(int64_t begin, int64_t end, char *name)
+generator_t* select_generator_dialog(char*name)
 {
-	printf("Select %s (from %"PRIi64" to %"PRIi64")\n", name, begin, end - 1);
-	int64_t answer;
-	if(scanf("%"SCNi64, &answer) != 1 || !(answer >= begin && answer < end))
-	{
-		printf(INVALID_IN"\n");
-		return NO_SELECT;
-	}
-	return answer;
+	size_t index = select_name_dialog(gen_names, GENS_COUNT, name);
+	if(index == NO_SELECT)
+		return NULL;
+	return gens + index;
+}
+
+comparator_t* select_comparator_dialog(char*name)
+{
+	size_t index = select_name_dialog(cmp_names, CMPS_COUNT, name);
+	if(index == NO_SELECT)
+		return NULL;
+	return cmps + index;
 }
 
 int compare_sorts()
 {
-	size_t sort1 = select_name_dialog(sort_names, SORTS_COUNT, "first sort");
-	if (sort1 == NO_SELECT)
+
+	sort_t* sort1 = select_sort_dialog("first sort");
+	if(!sort1)
+		return 1;
+	
+	sort_t* sort2 = select_sort_dialog("second sort");
+	if(!sort2)
 		return 1;
 
-	size_t sort2 = select_name_dialog(sort_names, SORTS_COUNT, "second sort");
-	if (sort2 == NO_SELECT)
-		return 1;
-	size_t gen = select_name_dialog(gen_names, GENS_COUNT, "generator");
-	if (gen == NO_SELECT)
-		return 1;
-	size_t cmp = select_name_dialog(cmp_names, CMPS_COUNT, "comparator");
-	if (cmp == NO_SELECT)
+	generator_t* gen = select_generator_dialog("how array is generated");
+	if(!gen)
 		return 1;
 
-	size_t tests_count = select_range_dialog(1, MAX_TESTS + 1, "number of tests");
+	comparator_t* cmp = select_comparator_dialog("how array must be sorted");
+	if(!cmp)
+		return 1;
+
+	size_t tests_count = select_number_dialog(1, MAX_TESTS + 1, "number of tests");
 	if(tests_count == NO_SELECT)
 		return 1;
 
-	sort_t run_sorts[2] = { sorts[sort1], sorts[sort2] };
-	char* run_sort_names[2] = { sort_names[sort1], sort_names[sort2] };
+	sort_t run_sorts[2] = { *sort1, *sort2 };
+	char* run_sort_names[2] = { sort_names[sort1 - sorts], sort_names[sort2 - sorts] };
 	size_t sizes[MAX_TESTS] = { 10, 100, 1000, 10000, 100000, 1000000, 10000000 };
 
-	run_tests(gens[gen], cmps[cmp], run_sorts, run_sort_names, 2, sizes, tests_count);
+	run_tests(*gen, *cmp, run_sorts, run_sort_names, 2, sizes, tests_count);
+	
 	return 0;
 }
 
@@ -92,6 +91,11 @@ int print_help()
 }
 
 int inspect_sort()
+{
+	return 0;
+}
+
+int check_sort()
 {
 	return 0;
 }
@@ -116,6 +120,8 @@ int main(int argc, char**argv)
 		return compare_sorts();
 	else if(strcmp(argv[1], "-i") == 0)
 		return inspect_sort();
+	else if(strcmp(argv[1], "-t") == 0)
+		return check_sort();
 	else
 	{
 		printf(INVALID_ARGS"\n");
