@@ -97,6 +97,24 @@ int inspect_sort()
 
 int check_sort()
 {
+	sort_t* sort = select_sort_dialog("sort to test");
+	if(!sort)
+		return 1;
+	
+	generator_t* gen = select_generator_dialog("how array is generated");
+	if(!gen)
+		return 1;
+
+	comparator_t* cmp = select_comparator_dialog("how array must be sorted");
+	if(!cmp)
+		return 1;
+
+	size_t size = select_number_dialog(1, 1000000 + 1, "size of array");
+	if(size == NO_SELECT)
+		return size;
+
+	test_sort(*sort, *gen, *cmp, size);
+
 	return 0;
 }
 
