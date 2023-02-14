@@ -5,7 +5,7 @@
 #include<stddef.h>
 #include<stdint.h>
 
-#define NO_SELECT INT64_MAX
+#define NO_SELECT INTPTR_MAX
 #define INVALID_IN "Invalid answer"
 
 size_t select_name_dialog(char** items_names, size_t items_count, char* name);
