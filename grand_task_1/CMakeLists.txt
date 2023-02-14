@@ -9,7 +9,7 @@ add_executable(run ${src} ${headers})
 
 target_compile_features(run PUBLIC c_std_99)
 
-if(${TEST_TYPE} STREQUAL "")
+if(NOT TEST_TYPE)
 	set(TEST_TYPE "TEST_64")
 endif()
 
