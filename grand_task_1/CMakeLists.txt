@@ -8,3 +8,4 @@ file(GLOB src ${CMAKE_CURRENT_SOURCE_DIR}/*.c)
 add_executable(run ${src} ${headers})
 
 target_compile_features(run PUBLIC c_std_99)
+target_compile_definitions(run PUBLIC TEST_TYPE=${TEST_TYPE})
