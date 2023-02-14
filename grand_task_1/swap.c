@@ -1,4 +1,5 @@
 #include"swap.h"
+#include"inspect.h"
 
 static size_t swaps = 0;
 
@@ -23,4 +24,5 @@ void swap(Type*a, Type*b)
 	Type tmp = *a;
 	*a = *b;
 	*b = tmp;
+	inspect_log();
 }

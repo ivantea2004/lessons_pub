@@ -8,6 +8,7 @@
 #include"heap_sort.h"
 #include"test.h"
 #include"ui.h"
+#include"inspect.h"
 
 #define INVALID_ARGS "Invalid arguments. Use -h for help."
 #define HELP_MSG "-h Show this text\n"\
@@ -90,14 +91,9 @@ int print_help()
 	return 0;
 }
 
-int inspect_sort()
-{
-	return 0;
-}
-
 int check_sort()
 {
-	sort_t* sort = select_sort_dialog("sort to test");
+	sort_t* sort = select_sort_dialog("sort to run");
 	if(!sort)
 		return 1;
 	
@@ -116,6 +112,18 @@ int check_sort()
 	test_sort(*sort, *gen, *cmp, size);
 
 	return 0;
+}
+
+int inspect_sort()
+{
+
+	inspect_set_enabled(1);
+
+	int res = check_sort();
+
+	inspect_set_enabled(0);
+
+	return res;
 }
 
 int main(int argc, char**argv)

@@ -2,6 +2,7 @@
 #include"sort.h"
 #include"array_io.h"
 #include"swap.h"
+#include"inspect.h"
 
 void execute_sort(sort_t sort, Type* arr, size_t size, comparator_t cmp, size_t* cmps, size_t* swaps)
 {
@@ -19,12 +20,14 @@ void test_sort(sort_t sort, generator_t gen, comparator_t cmp, size_t size)
 	size_t cmps, swaps;
 
 	Type* arr = malloc(sizeof(Type) * size);
+	inspect_init(arr, size);
 
 	gen(arr, size);
 	printf("Generated array:\n");
 	write_arr(arr, size);
+	printf("\n");
 	execute_sort(sort, arr, size, cmp, &cmps, &swaps);
-	printf("\nSorted array:\n");
+	printf("Sorted array:\n");
 	write_arr(arr, size);
 
 	int ok = 1;
@@ -32,12 +35,12 @@ void test_sort(sort_t sort, generator_t gen, comparator_t cmp, size_t size)
 		if (cmp(arr[i - 1], arr[i]) > 0)
 			ok = 0;
 	free(arr);
-
+	printf("\nresult=");
 	if (ok)
-		puts("\nSorted");
+		puts("sorted");
 	else 
-		puts("\nNot sorted");
+		puts("not sorted");
 	
-	printf("Swaps: %"PRIuPTR", Cmps: %"PRIuPTR"\n", swaps, cmps);
+	printf("swaps=%"PRIuPTR", cmps=%"PRIuPTR"\n", cmps, swaps);
 
 }
