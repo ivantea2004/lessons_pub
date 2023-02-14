@@ -1,14 +1,12 @@
 #include<stdio.h>
-#include<stdlib.h>
 #include<string.h>
 #include"rand.h"
-#include"generate.h"
+#include"inspect.h"
+#include"test.h"
+#include"ui.h"
 #include"bubble_sort.h"
 #include"shell_sort.h"
 #include"heap_sort.h"
-#include"test.h"
-#include"ui.h"
-#include"inspect.h"
 
 #define INVALID_ARGS "Invalid arguments. Use -h for help."
 #define HELP_MSG "-h Show this text\n"\
