@@ -1,12 +1,12 @@
 
 TARGET = clc
-CLC_SRC = main.c
+SRC = main.c root.h root.c integral.h integral.c
 
 .PHONY: all clean
 
 all: $(TARGET)
 
-$(TARGET):
-	gcc -Wall -s $(CLC_SRC) -o $(TARGET)
+$(TARGET): $(SRC)
+	gcc -Wall -s $(SRC) -lm -o $(TARGET)
 
 clean:
