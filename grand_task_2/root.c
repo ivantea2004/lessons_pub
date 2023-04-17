@@ -1,5 +1,31 @@
 #include"root.h"
 
+
+
+int first_derivative_sign(func_t f, func_t g, float a, float b)
+{
+    float y1 = f(a) - g(a), y2 = f(b) - g(b);
+    if(y1 < y2)
+        return 1;
+    else if(y1 > y2)
+        return -1;
+    else
+        return 0;
+}
+
+int second_derivative_sign(func_t f, func_t g, float a, float b)
+{
+    float m = (a + b) / 2;
+    float y1 = f(a) - g(a), y2 = f(m) - g(m), y3 = f(b) - g(b);
+    float y4 = (y1 + y3) / 2;
+    if(y2 > y4)
+        return -1;
+    else if(y2 < y4)
+        return 1;
+    else
+        return 0;
+}
+
 float root(func_t f, func_t g, float a, float b, float eps, int*steps)
 {
     if(steps)
@@ -7,21 +33,31 @@ float root(func_t f, func_t g, float a, float b, float eps, int*steps)
 
     float c = (a + b) / 2;
 
-    int N = 100;
+    int s = first_derivative_sign(f, g, a, b);
 
-    for(int i = 0; i < N; i++)
+    while(1)
     {
         float y = f(c) - g(c);
-        if(y < 0)
+        if(s > 0)
         {
-            a = c;
+            if(y < 0)
+                a = c;
+            else
+                b = c;
         }
         else
         {
-            b = c;
+            if(y < 0)
+                b = c;
+            else
+                a = c;
         }
         c = (a + b) / 2;
-    }
 
-    return c;
+        (*steps)++;
+
+        if(b - a < eps)
+            return c;
+
+    }
 }

@@ -8,17 +8,20 @@
 "-help                                             print this text\n" \
 "-integral [-steps | -s] <func> <a> <b> <eps>      calculate integral of <func> from <a> to <b> with precision <eps>\n" \
 "-root [-steps | -s] <func1> <func2> <a> <b> <eps> find root of (<func1> - <func2> = 0) on [a, b] with precision <eps>\n" \
+"-compute <func> <x>                               compute <func> value at <x>\n" \
 "-h                                                same as -help\n" \
 "-i                                                same as -integral\n" \
-"-r                                                same as -root\n"
+"-r                                                same as -root\n" \
+"-c                                                same as -compute\n"
 
-#define NOT_ENUF_ARGS "Not enuf arguments.\n"
+#define NOT_ENOUGH_ARGS "Not enough arguments.\n"
 #define FUNC_INDEX_OUT_OF_RANGE "Function index out of range.\n"
 #define INVALID_FORMAT "Invalid format of arguments.\n"
+#define INVALID_FLAG "Invalid flag. Read help with -help flag.\n"
 
-#define FUNCS_COUNT 3
+#define FUNCS_COUNT 5
 
-func_t funcs[FUNCS_COUNT] = {f1, f2, f3};
+func_t funcs[FUNCS_COUNT] = {f1, f2, f3, f4, f5};
 
 int main(int argc, char**argv)
 {
@@ -38,7 +41,7 @@ int main(int argc, char**argv)
 
         if(argc < 3)
         {
-            printf(NOT_ENUF_ARGS);
+            printf(NOT_ENOUGH_ARGS);
             return 0;
         }
 
@@ -49,7 +52,7 @@ int main(int argc, char**argv)
 
         if(argc - with_steps < 6)
         {
-            printf(NOT_ENUF_ARGS);
+            printf(NOT_ENOUGH_ARGS);
             return 0;
         }
         
@@ -87,7 +90,7 @@ int main(int argc, char**argv)
     {
         if(argc < 3)
         {
-            printf(NOT_ENUF_ARGS);
+            printf(NOT_ENOUGH_ARGS);
             return 0;
         }
         int with_steps = 0;
@@ -95,7 +98,7 @@ int main(int argc, char**argv)
             with_steps = 1;
         if(argc - with_steps < 7)
         {
-            printf(NOT_ENUF_ARGS);
+            printf(NOT_ENOUGH_ARGS);
             return 0;
         }
         int f1, f2;
@@ -124,7 +127,36 @@ int main(int argc, char**argv)
             printf("steps=%d\nvalue=%f\n", steps, r);
         return 0;
     }
+    else if(strcmp(argv[1], "-c") == 0 || strcmp(argv[1], "-compute") == 0)
+    {
+        if(argc < 4)
+        {
+            printf(NOT_ENOUGH_ARGS);
+            return 0;
+        }
+        int f;
+        float x;
+        if(!(
+            sscanf(argv[2], "%d", &f) &&
+            sscanf(argv[3], "%f", &x)
+        ))
+        {
+            printf(INVALID_FORMAT);
+            return 0;
+        }
 
+        if(f <= 0 || f > FUNCS_COUNT)
+        {
+            printf(FUNC_INDEX_OUT_OF_RANGE);
+            return 0;
+        }
+        float y = funcs[f - 1](x);
+        printf("%f\n", y);
+    }
+    else
+    {
+        printf(INVALID_FLAG);
+    }
 
     return 0;
 }
