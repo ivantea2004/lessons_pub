@@ -16,8 +16,11 @@ float pass(func_t f, float a, float b, int splits)
     return s;
 }
 
-float integral(func_t f, float a, float b, float eps)
+float integral(func_t f, float a, float b, float eps, int* steps)
 {
+
+    if(steps)
+        *steps = 0;
 
     float s = pass(f, a, b, 1);
 
@@ -25,7 +28,7 @@ float integral(func_t f, float a, float b, float eps)
     {
 
         float s1 = pass(f, a, b, N);
-
+        (*steps)++;
         if(s1 - s < eps && s1 - s > -eps)
         {
             return s1;

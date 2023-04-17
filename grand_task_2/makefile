@@ -1,6 +1,6 @@
 
 TARGET = clc
-SRC = main.c root.h root.c integral.h integral.c
+SRC = main.c root.h root.c integral.h integral.c func_t.h funcs.h funcs.c
 
 .PHONY: all clean
 
