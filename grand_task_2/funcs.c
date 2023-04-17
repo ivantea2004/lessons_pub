@@ -1,8 +1,9 @@
 #include"funcs.h"
+#include<math.h>
 
-float f1(float)
+float f1(float x)
 {
-    return 0;
+    return x * x - 1;
 }
 
 
@@ -12,8 +13,7 @@ float f2(float)
 }
 
 
-float f3(float)
+float f3(float x)
 {
-    return 0;
+    return sin(x) - 0.5;
 }
-

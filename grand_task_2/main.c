@@ -5,11 +5,12 @@
 #include"root.h"
 
 #define HELP_MSG \
-"-help                                        print this text\n" \
-"-integral [-steps | -s] <func> <a> <b> <eps> calculate integral of <func> from <a> to <b> with precision <eps>\n" \
-"-root [-steps | -s] <func1> <func2> <eps>    find root of (<func1> - <func2> = 0) with precision <eps>\n" \
-"-i                                           same as -integral\n" \
-"-r                                           same as -root\n"
+"-help                                             print this text\n" \
+"-integral [-steps | -s] <func> <a> <b> <eps>      calculate integral of <func> from <a> to <b> with precision <eps>\n" \
+"-root [-steps | -s] <func1> <func2> <a> <b> <eps> find root of (<func1> - <func2> = 0) on [a, b] with precision <eps>\n" \
+"-h                                                same as -help\n" \
+"-i                                                same as -integral\n" \
+"-r                                                same as -root\n"
 
 #define NOT_ENUF_ARGS "Not enuf arguments.\n"
 #define FUNC_INDEX_OUT_OF_RANGE "Function index out of range.\n"
@@ -27,7 +28,7 @@ int main(int argc, char**argv)
         // run default
         return 0;
     }
-    else if(strcmp(argv[1], "-help") == 0)
+    else if(strcmp(argv[1], "-help") == 0 || strcmp(argv[1], "-h") == 0)
     {
         printf(HELP_MSG);
         return 0;
@@ -92,17 +93,19 @@ int main(int argc, char**argv)
         int with_steps = 0;
         if(strcmp(argv[2], "-steps") == 0 || strcmp(argv[2], "-s") == 0)
             with_steps = 1;
-        if(argc - with_steps < 5)
+        if(argc - with_steps < 7)
         {
             printf(NOT_ENUF_ARGS);
             return 0;
         }
         int f1, f2;
-        float eps;
+        float a, b, eps;
         if(!(
             sscanf(argv[2 + with_steps], "%d", &f1) && 
             sscanf(argv[3 + with_steps], "%d", &f2) && 
-            sscanf(argv[4 + with_steps], "%f", &eps)
+            sscanf(argv[4 + with_steps], "%f", &a) && 
+            sscanf(argv[5 + with_steps], "%f", &b) && 
+            sscanf(argv[6 + with_steps], "%f", &eps)
         ))
         {
             printf(INVALID_FORMAT);
@@ -113,7 +116,7 @@ int main(int argc, char**argv)
             return 0;
         }
         int steps;
-        float r = root(funcs[f1 - 1], funcs[f2 - 2], eps, &steps);
+        float r = root(funcs[f1 - 1], funcs[f2 - 1], a, b, eps, &steps);
 
         if(!with_steps)
             printf("%f\n", r);
