@@ -29,6 +29,7 @@ int main(int argc, char**argv)
     if(argc <= 1)
     {
         // run default
+        printf("Default behaviour is not emplimented.\n");
         return 0;
     }
     else if(strcmp(argv[1], "-help") == 0 || strcmp(argv[1], "-h") == 0)
@@ -112,6 +113,7 @@ int main(int argc, char**argv)
         ))
         {
             printf(INVALID_FORMAT);
+            return 0;
         }
         if(f1 < 0 || f2 < 0 || f1 > FUNCS_COUNT || f2 > FUNCS_COUNT)
         {
@@ -156,6 +158,7 @@ int main(int argc, char**argv)
     else
     {
         printf(INVALID_FLAG);
+        return 0;
     }
 
     return 0;

@@ -10,3 +10,4 @@ $(TARGET): $(SRC)
 	gcc -Wall -s $(SRC) -lm -o $(TARGET)
 
 clean:
+	rm -f $(TARGET)

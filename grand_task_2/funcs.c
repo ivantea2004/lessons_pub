@@ -19,10 +19,10 @@ float f3(float x)
 
 float f4(float x)
 {
-    return 2 * x;
+    return log2f(x + 3);
 }
 
 float f5(float x)
 {
-    return x + 1;
+    return exp2(x);
 }
