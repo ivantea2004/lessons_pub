@@ -26,10 +26,25 @@
 int main(int argc, char**argv)
 {
 
-    if(argc <= 1)
+    if(argc <= 1) // run default
     {
-        // run default
-        printf("Default behaviour is not emplimented.\n");
+        float eps1 = 0.00001, eps2 = 0.0001;
+        float a12 = 1, b12 = 1.5; // range where x12 is located
+        float a13 = -1.4, b13 = -1; // x13
+        float a23 = 0.5, b23 = 1; // x23
+
+        differentiable_function_t f1 = defined_functions[0], f2 = defined_functions[1], f3 = defined_functions[2];
+
+        float x12 = root(f1, f2, a12, b12, eps1, NULL);
+        float x13 = root(f1, f3, a13, b13, eps1, NULL);
+        float x23 = root(f2, f3, a23, b23, eps1, NULL);
+
+        printf("x12=%f\nx13=%f\nx23=%f\n", x12, x13, x23);
+
+        float area = integral(f1, x13, x23, eps2, NULL) - integral(f2, x13, x23, eps2, NULL) - integral(f3, x23, x12, eps2, NULL);
+
+        printf("S=%f\n", area);
+
         return 0;
     }
     else if(strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "-help") == 0)

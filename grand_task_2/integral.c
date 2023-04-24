@@ -27,7 +27,8 @@ float integral(differentiable_function_t f, float a, float b, float eps, int* st
 
         float curr_S = h / 3 * (F_left + F_right + 4 * curr_odd + 2 * curr_even);
 
-        (*steps)++;
+        if(steps)
+            (*steps)++;
 
         if(fabs((curr_S - prev_S) / 15) < eps)
         {
