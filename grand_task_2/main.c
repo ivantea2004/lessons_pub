@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h>
-#include"funcs.h"
+#include"defined_functions.h"
 #include"integral.h"
 #include"root.h"
 
@@ -18,10 +18,6 @@
 #define FUNC_INDEX_OUT_OF_RANGE "Function index out of range.\n"
 #define INVALID_FORMAT "Invalid format of arguments.\n"
 #define INVALID_FLAG "Invalid flag. Read help with -help flag.\n"
-
-#define FUNCS_COUNT 5
-
-func_t funcs[FUNCS_COUNT] = {f1, f2, f3, f4, f5};
 
 int main(int argc, char**argv)
 {
@@ -69,7 +65,7 @@ int main(int argc, char**argv)
             return 0;
         }
 
-        if(f > FUNCS_COUNT || f <= 0)
+        if(f > DEFINED_FUNCTIONS_COUNT || f <= 0)
         {
             printf(FUNC_INDEX_OUT_OF_RANGE);
             return 0;            
@@ -77,7 +73,7 @@ int main(int argc, char**argv)
 
         int steps;
 
-        float i = integral(funcs[f - 1], a, b, eps, &steps);
+        float i = integral(defined_functions[f - 1], a, b, eps, &steps);
 
         if(!with_steps)
             printf("%f\n", i);
@@ -115,13 +111,13 @@ int main(int argc, char**argv)
             printf(INVALID_FORMAT);
             return 0;
         }
-        if(f1 < 0 || f2 < 0 || f1 > FUNCS_COUNT || f2 > FUNCS_COUNT)
+        if(f1 < 0 || f2 < 0 || f1 > DEFINED_FUNCTIONS_COUNT || f2 > DEFINED_FUNCTIONS_COUNT)
         {
             printf(FUNC_INDEX_OUT_OF_RANGE);
             return 0;
         }
         int steps;
-        float r = root(funcs[f1 - 1], funcs[f2 - 1], a, b, eps, &steps);
+        float r = root(defined_functions[f1 - 1], defined_functions[f2 - 1], a, b, eps, &steps);
 
         if(!with_steps)
             printf("%f\n", r);
@@ -147,12 +143,12 @@ int main(int argc, char**argv)
             return 0;
         }
 
-        if(f <= 0 || f > FUNCS_COUNT)
+        if(f <= 0 || f > DEFINED_FUNCTIONS_COUNT)
         {
             printf(FUNC_INDEX_OUT_OF_RANGE);
             return 0;
         }
-        float y = funcs[f - 1](x);
+        float y = defined_functions[f - 1].function(x);
         printf("%f\n", y);
     }
     else

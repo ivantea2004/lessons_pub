@@ -1,13 +1,21 @@
 
-TARGET = clc
-SRC = main.c root.h root.c integral.h integral.c func_t.h funcs.h funcs.c
+all: clc
 
-.PHONY: all clean
+differentiable_function_t.h:
 
-all: $(TARGET)
+root.h: differentiable_function_t.h
+root.c: root.h
 
-$(TARGET): $(SRC)
-	gcc -Wall -s $(SRC) -lm -o $(TARGET)
+integral.h: differentiable_function_t.h
+integral.c: integral.h
+
+"defined_functions.h": differentiable_function_t.h
+"defined_functions.c": defined_functions.h
+
+main.c: defined_functions.h integral.h root.h
+
+clc: main.c root.c integral.c defined_functions.c
+	gcc -Wall -s main.c root.c integral.c defined_functions.c -lm -o clc
 
 clean:
-	rm -f $(TARGET)
+	rm -f clc 

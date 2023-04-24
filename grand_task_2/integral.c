@@ -1,7 +1,7 @@
 #include"integral.h"
 
 
-float pass(func_t f, float a, float b, int splits)
+float pass(differentiable_function_t f, float a, float b, int splits)
 {
     int N = splits;
 
@@ -11,12 +11,12 @@ float pass(func_t f, float a, float b, int splits)
     {
         float delta = (b - a) / N;
         float ksi = delta * i + a;
-        s += f(ksi) * delta;
+        s += f.function(ksi) * delta;
     }
     return s;
 }
 
-float integral(func_t f, float a, float b, float eps, int* steps)
+float integral(differentiable_function_t f, float a, float b, float eps, int* steps)
 {
 
     if(steps)
