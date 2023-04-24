@@ -1,35 +1,6 @@
 #include"defined_functions.h"
+#include"default_functions.h"
 #include<math.h>
-
-static float f1(float x)
-{
-    return 1 + 4 / (x * x + 1);
-}
-
-static float f1_der(float x)
-{
-    return -8 * x / ((x * x + 1) * (x *x + 1));
-}
-
-static float f2(float x)
-{
-    return x * x * x;
-}
-
-static float f2_der(float x)
-{
-    return 3 * x * x;
-}
-
-static float f3(float x)
-{
-    return exp2f(-x);
-}
-
-static float f3_der(float x)
-{
-    return -logf(2) * exp2f(x);
-}
 
 static float f4(float x)
 {
@@ -123,9 +94,9 @@ static float f12_der(float x)
 
 differentiable_function_t defined_functions[DEFINED_FUNCTIONS_COUNT] = 
 {
-    {f1, f1_der},
-    {f2, f2_der},
-    {f3, f3_der},
+    {default_f1, default_f1_derivative},
+    {default_f2, default_f2_derivative},
+    {default_f3, default_f3_derivative},
     {f4, f4_der},
     {f5, f5_der},
     {f6, f6_der},
@@ -139,9 +110,9 @@ differentiable_function_t defined_functions[DEFINED_FUNCTIONS_COUNT] =
 
 char* function_formulas[DEFINED_FUNCTIONS_COUNT] = 
 {
-    "y = 1 + 4/(x^2 + 1)",
-    "y = x^3",
-    "y = 2^(-x)",
+    default_f1_formula,
+    default_f2_formula,
+    default_f3_formula,
     "y = log(2, x + 3)",
     "y = 2^x",
     "y = sinx",
