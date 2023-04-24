@@ -1,20 +1,6 @@
 #include"integral.h"
 
-
-float pass(differentiable_function_t f, float a, float b, int splits)
-{
-    int N = splits;
-
-    float s = 0;
-
-    for(int i = 0; i < N; i++)
-    {
-        float delta = (b - a) / N;
-        float ksi = delta * i + a;
-        s += f.function(ksi) * delta;
-    }
-    return s;
-}
+#include<stdio.h>
 
 float integral(differentiable_function_t f, float a, float b, float eps, int* steps)
 {
@@ -22,19 +8,40 @@ float integral(differentiable_function_t f, float a, float b, float eps, int* st
     if(steps)
         *steps = 0;
 
-    float s = pass(f, a, b, 1);
+    float F_left = f.function(a), F_right = f.function(b);
 
-    for(int N = 2;; N *= 2)
+    float prev_sum = f.function((a + b) / 2);
+    float prev_S = (b - a) / 6 * (F_left + F_right + 4 * prev_sum);
+
+    for(int n = 4; n < 100000; n *= 2)
     {
 
-        float s1 = pass(f, a, b, N);
-        (*steps)++;
-        if(s1 - s < eps && s1 - s > -eps)
+        float curr_even = prev_sum;
+        float curr_odd = 0;
+        float h = (b - a) / n;
+    
+        for(int i = 1; i < n; i += 2)
         {
-            return s1;
+            float x = a + i * h;
+            curr_odd += f.function(x);
         }
-        s = s1;
+
+        float curr_S = h / 3 * (F_left + F_right + 4 * curr_odd + 2 * curr_even);
+
+        float d = (curr_S - prev_S) / 15;
+
+        (*steps)++;
+
+        if(-eps < d && d < eps)
+        {
+            return curr_S;
+        }
+
+        prev_S = curr_S;
+        prev_sum = curr_even + curr_odd;
+
     }
 
+    return prev_S;
 }
 
