@@ -9,10 +9,14 @@
 "-integral [-steps | -s] <func> <a> <b> <eps>      calculate integral of <func> from <a> to <b> with precision <eps>\n" \
 "-root [-steps | -s] <func1> <func2> <a> <b> <eps> find root of (<func1> - <func2> = 0) on [a, b] with precision <eps>\n" \
 "-compute <func> <x>                               compute <func> value at <x>\n" \
+"-formula <func>                                   formula of <func>\n" \
+"-list                                             list all formulas\n" \
 "-h                                                same as -help\n" \
 "-i                                                same as -integral\n" \
 "-r                                                same as -root\n" \
-"-c                                                same as -compute\n"
+"-c                                                same as -compute\n"\
+"-f                                                same as -formula\n"\
+"-l                                                same as -list\n"
 
 #define NOT_ENOUGH_ARGS "Not enough arguments.\n"
 #define FUNC_INDEX_OUT_OF_RANGE "Function index out of range.\n"
@@ -28,7 +32,7 @@ int main(int argc, char**argv)
         printf("Default behaviour is not emplimented.\n");
         return 0;
     }
-    else if(strcmp(argv[1], "-help") == 0 || strcmp(argv[1], "-h") == 0)
+    else if(strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "-help") == 0)
     {
         printf(HELP_MSG);
         return 0;
@@ -150,6 +154,33 @@ int main(int argc, char**argv)
         }
         float y = defined_functions[f - 1].function(x);
         printf("%f\n", y);
+    }
+    else if(strcmp(argv[1], "-f") == 0 || strcmp(argv[1], "-formula") == 0)
+    {
+        if(argc < 3)
+        {
+            printf(NOT_ENOUGH_ARGS);
+            return 0;
+        }
+        int f;
+        if(!sscanf(argv[2], "%d", &f))
+        {
+            printf(INVALID_FORMAT);
+            return 0;
+        }
+
+        if(f <= 0 || f > DEFINED_FUNCTIONS_COUNT)
+        {
+            printf(FUNC_INDEX_OUT_OF_RANGE);
+            return 0;
+        }
+        printf("%d: %s\n", f, function_formulas[f - 1]);
+        return 0;
+    }
+    else if(strcmp(argv[1], "-l") == 0 || strcmp(argv[1], "-list") == 0)
+    {
+        for(int i = 0; i < DEFINED_FUNCTIONS_COUNT; i++)
+            printf("%d: %s\n", i + 1, function_formulas[i]);
     }
     else
     {
