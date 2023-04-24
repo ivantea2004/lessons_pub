@@ -1,6 +1,5 @@
 #include"integral.h"
-
-#include<stdio.h>
+#include<math.h>
 
 float integral(differentiable_function_t f, float a, float b, float eps, int* steps)
 {
@@ -28,11 +27,9 @@ float integral(differentiable_function_t f, float a, float b, float eps, int* st
 
         float curr_S = h / 3 * (F_left + F_right + 4 * curr_odd + 2 * curr_even);
 
-        float d = (curr_S - prev_S) / 15;
-
         (*steps)++;
 
-        if(-eps < d && d < eps)
+        if(fabs((curr_S - prev_S) / 15) < eps)
         {
             return curr_S;
         }
