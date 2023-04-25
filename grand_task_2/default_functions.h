@@ -2,17 +2,21 @@
 #ifndef DEFAULT_FUNCTIONS_H
 #define DEFAULT_FUNCTIONS_H
 
-float default_f1(float);
-float default_f1_derivative(float);
+#include<assert.h>
+#include"real.h"
+
+static_assert(sizeof(real_t) == sizeof(float), "real_t is not float");
+
+real_t default_f1(real_t);
+real_t default_f1_derivative(real_t);
 extern char default_f1_formula[];
 
-float default_f2(float);
-float default_f2_derivative(float);
+real_t default_f2(real_t);
+real_t default_f2_derivative(real_t);
 extern char default_f2_formula[];
 
-float default_f3(float);
-float default_f3_derivative(float);
+real_t default_f3(real_t);
+real_t default_f3_derivative(real_t);
 extern char default_f3_formula[];
-
 
 #endif

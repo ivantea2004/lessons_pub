@@ -4,6 +4,6 @@
 
 #include"real_function.h"
 
-float integral(real_function_t f, float a, float b, float eps, int* steps);
+real_t integral(real_function_t f, real_t a, real_t b, real_t eps, int* steps);
 
 #endif

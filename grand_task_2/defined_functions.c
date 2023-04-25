@@ -2,94 +2,95 @@
 #include"default_functions.h"
 #include<math.h>
 
-static float f4(float x)
+
+static real_t f4(real_t x)
 {
-    return log2f(x + 3);
+    return log2(x + 3);
 }
 
-static float f4_der(float x)
+static real_t f4_der(real_t x)
 {
-    return 1 / ((x + 3) * logf(2)); 
+    return 1 / ((x + 3) * log(2)); 
 }
 
-static float f5(float x)
+static real_t f5(real_t x)
 {
-    return exp2f(x);
+    return exp2(x);
 }
 
-static float f5_der(float x)
+static real_t f5_der(real_t x)
 {
-    return logf(2) * exp2f(x);
+    return log(2) * exp2(x);
 }
 
-static float f6(float x)
+static real_t f6(real_t x)
 {
-    return sinf(x);
+    return sin(x);
 }
 
-static float f6_der(float x)
+static real_t f6_der(real_t x)
 {
-    return cosf(x);
+    return cos(x);
 }
 
-static float f7(float x)
+static real_t f7(real_t x)
 {
-    return expf(x) + 1;
+    return exp(x) + 1;
 }
 
-static float f7_der(float x)
+static real_t f7_der(real_t x)
 {
-    return expf(x) + 1;
+    return exp(x) + 1;
 }
 
-static float f8(float x)
+static real_t f8(real_t x)
 {
     return 1 /(x * x);
 }
 
-static float f8_der(float x)
+static real_t f8_der(real_t x)
 {
     return -2 / (x * x * x);
 }
 
-static float f9(float x)
+static real_t f9(real_t x)
 {
     return (x + 2) * (x + 2);
 }
 
-static float f9_der(float x)
+static real_t f9_der(real_t x)
 {
     return 2 * x + 4;
 }
 
-static float f10(float x)
+static real_t f10(real_t x)
 {
-    return sinf(x) + 4;
+    return sin(x) + 4;
 }
 
-static float f10_der(float x)
+static real_t f10_der(real_t x)
 {
-    return cosf(x);
+    return cos(x);
 }
 
-static float f11(float x)
+static real_t f11(real_t x)
 {
-    return 2 * logf(x) / x;
+    return 2 * log(x) / x;
 }
 
-static float f11_der(float x)
+static real_t f11_der(real_t x)
 {
-    return 2 * (1 - logf(x)) / (x * x);
+    return 2 * (1 - log(x)) / (x * x);
 }
 
-static float f12(float x)
+static real_t f12(real_t x)
 {
-    return 1 / sqrtf(x);
+    return 1 / sqrt(x);
 }
 
-static float f12_der(float x)
+static real_t f12_der(real_t x)
 {
-    return -0.5 / sqrtf(x * x * x);
+    return -0.5 / sqrt(x * x * x);
 }
 
 real_function_t defined_functions[DEFINED_FUNCTIONS_COUNT] = 

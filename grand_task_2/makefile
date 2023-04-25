@@ -1,26 +1,24 @@
 
 all: clc
 
-real_function.h:
 
-default_functions.h:
-default_functions.c: default_functions.h
-default_functions.o: default_functions.c
+default_functions.o: default_functions.h default_functions.c real.h
 	gcc -Wall -c -s default_functions.c -o default_functions.o
 
-root.h: real_function.h
-root.c: root.h
+root.o: root.c root.h real_function.h real.h
+	gcc -Wall -c -s root.c -o root.o
 
-integral.h: real_function.h
-integral.c: integral.h
+integral.o: integral.c integral.h real_function.h real.h
+	gcc -Wall -c -s integral.c -o integral.o
 
-"defined_functions.h": real_function.h
-"defined_functions.c": defined_functions.h default_functions.h
+"defined_functions.o": defined_functions.c defined_functions.h default_functions.h real_function.h real.h
+	gcc -Wall -c -s defined_function.c -o defined_functions.o
 
-main.c: defined_functions.h integral.h root.h
+main.o: defined_functions.h integral.h root.h real_function.h real.h
+	gcc -Wall -c -s main.c -o main.o
 
-clc: main.c root.c integral.c defined_functions.c default_functions.o
-	gcc -Wall -s main.c root.c integral.c defined_functions.c default_functions.o -lm -o clc
+clc: root.o integral.o defined_functions.o main.o default_functions.o
+	gcc -Wall -s root.o integral.o defined_functions.o default_functions.o main.o -lm -o clc
 
 clean:
-	rm -f clc default_functions.o
+	rm -f clc root.o integral.o defined_functions.o default_functions.o main.o

@@ -1,14 +1,14 @@
 #include"root.h"
 #include<math.h>
 
-static float calc_diff(real_function_t f, real_function_t g, float x)
+static real_t calc_diff(real_function_t f, real_function_t g, real_t x)
 {
     return f(x) - g(x);
 }
 
-static int first_derivative_sign(real_function_t f, real_function_t g, float a, float b)
+static int first_derivative_sign(real_function_t f, real_function_t g, real_t a, real_t b)
 {
-    float y1 = calc_diff(f, g, a), y2 = calc_diff(f, g, b);
+    real_t y1 = calc_diff(f, g, a), y2 = calc_diff(f, g, b);
     if(y1 < y2)
         return 1;
     else if(y1 > y2)
@@ -17,11 +17,11 @@ static int first_derivative_sign(real_function_t f, real_function_t g, float a, 
         return 0;
 }
 
-static int second_derivative_sign(real_function_t f, real_function_t g, float a, float b)
+static int second_derivative_sign(real_function_t f, real_function_t g, real_t a, real_t b)
 {
-    float m = (a + b) / 2;
-    float y1 = calc_diff(f, g, a), y2 = calc_diff(f, g, m), y3 = calc_diff(f, g, b);
-    float y4 = (y1 + y3) / 2;
+    real_t m = (a + b) / 2;
+    real_t y1 = calc_diff(f, g, a), y2 = calc_diff(f, g, m), y3 = calc_diff(f, g, b);
+    real_t y4 = (y1 + y3) / 2;
     if(y2 > y4)
         return -1;
     else if(y2 < y4)
@@ -36,7 +36,7 @@ typedef enum
     DIRECTION_RIGHT // from left to right
 } DIRECTION;
 
-static float chord_method_step(real_function_t f, real_function_t g, float a, float b, DIRECTION dir)
+static real_t chord_method_step(real_function_t f, real_function_t g, real_t a, real_t b, DIRECTION dir)
 {
     if(dir == DIRECTION_LEFT)
     {
@@ -48,12 +48,12 @@ static float chord_method_step(real_function_t f, real_function_t g, float a, fl
     }
 }
 
-static float newton_method_step(real_function_t f, real_function_t f_der, real_function_t g, real_function_t g_der, float x)
+static real_t newton_method_step(real_function_t f, real_function_t f_der, real_function_t g, real_function_t g_der, real_t x)
 {
     return x - calc_diff(f, g, x) / calc_diff(f_der, g_der, x);
 }
 
-float root(real_function_t f, real_function_t f_der, real_function_t g, real_function_t g_der, float a, float b, float eps, int*steps)
+real_t root(real_function_t f, real_function_t f_der, real_function_t g, real_function_t g_der, real_t a, real_t b, real_t eps, int*steps)
 {
     if(steps)
         *steps = 0;
