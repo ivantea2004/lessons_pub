@@ -2,8 +2,8 @@
 #ifndef ROOT_H
 #define ROOT_H
 
-#include"differentiable_function_t.h"
+#include"real_function.h"
 
-float root(differentiable_function_t f, differentiable_function_t g, float a, float b, float eps, int*steps);
+float root(real_function_t f, real_function_t f_der, real_function_t g, real_function_t g_der, float a, float b, float eps, int*steps);
 
 #endif

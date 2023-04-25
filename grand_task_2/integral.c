@@ -1,15 +1,15 @@
 #include"integral.h"
 #include<math.h>
 
-float integral(differentiable_function_t f, float a, float b, float eps, int* steps)
+float integral(real_function_t f, float a, float b, float eps, int* steps)
 {
 
     if(steps)
         *steps = 0;
 
-    float F_left = f.function(a), F_right = f.function(b);
+    float F_left = f(a), F_right = f(b);
 
-    float prev_sum = f.function((a + b) / 2);
+    float prev_sum = f((a + b) / 2);
     float prev_S = (b - a) / 6 * (F_left + F_right + 4 * prev_sum);
 
     for(int n = 4; n < 100000; n *= 2)
@@ -22,7 +22,7 @@ float integral(differentiable_function_t f, float a, float b, float eps, int* st
         for(int i = 1; i < n; i += 2)
         {
             float x = a + i * h;
-            curr_odd += f.function(x);
+            curr_odd += f(x);
         }
 
         float curr_S = h / 3 * (F_left + F_right + 4 * curr_odd + 2 * curr_even);

@@ -33,11 +33,19 @@ int main(int argc, char**argv)
         float a13 = -1.4, b13 = -1; // x13
         float a23 = 0.5, b23 = 1; // x23
 
-        differentiable_function_t f1 = defined_functions[0], f2 = defined_functions[1], f3 = defined_functions[2];
+        //differentiable_function_t f1 = defined_functions[0], f2 = defined_functions[1], f3 = defined_functions[2];
 
-        float x12 = root(f1, f2, a12, b12, eps1, NULL);
-        float x13 = root(f1, f3, a13, b13, eps1, NULL);
-        float x23 = root(f2, f3, a23, b23, eps1, NULL);
+        real_function_t 
+            f1 = defined_functions[0],
+            f1_der = defined_derivatives[0],
+            f2 = defined_functions[1],
+            f2_der = defined_derivatives[1],
+            f3 = defined_functions[2],
+            f3_der = defined_derivatives[2];
+
+        float x12 = root(f1, f1_der, f2, f2_der, a12, b12, eps1, NULL);
+        float x13 = root(f1, f1_der, f3, f3_der, a13, b13, eps1, NULL);
+        float x23 = root(f2, f2_der, f3, f3_der, a23, b23, eps1, NULL);
 
         printf("x12=%f\nx13=%f\nx23=%f\n", x12, x13, x23);
 
@@ -136,7 +144,7 @@ int main(int argc, char**argv)
             return 0;
         }
         int steps;
-        float r = root(defined_functions[f1 - 1], defined_functions[f2 - 1], a, b, eps, &steps);
+        float r = root(defined_functions[f1 - 1], defined_derivatives[f1 - 1], defined_functions[f2 - 1], defined_derivatives[f2 - 1], a, b, eps, &steps);
 
         if(!with_steps)
             printf("%f\n", r);
@@ -167,7 +175,7 @@ int main(int argc, char**argv)
             printf(FUNC_INDEX_OUT_OF_RANGE);
             return 0;
         }
-        float y = defined_functions[f - 1].function(x);
+        float y = defined_functions[f - 1](x);
         printf("%f\n", y);
     }
     else if(strcmp(argv[1], "-f") == 0 || strcmp(argv[1], "-formula") == 0)

@@ -1,19 +1,14 @@
 #include"root.h"
 #include<math.h>
 
-static float calc_F(differentiable_function_t f, differentiable_function_t g, float x)
+static float calc_diff(real_function_t f, real_function_t g, float x)
 {
-    return f.function(x) - g.function(x);
+    return f(x) - g(x);
 }
 
-static float calc_F_der(differentiable_function_t f, differentiable_function_t g, float x)
+static int first_derivative_sign(real_function_t f, real_function_t g, float a, float b)
 {
-    return f.derivative(x) - g.derivative(x);
-}
-
-static int first_derivative_sign(differentiable_function_t f, differentiable_function_t g, float a, float b)
-{
-    float y1 = calc_F(f, g, a), y2 = calc_F(f, g, b);
+    float y1 = calc_diff(f, g, a), y2 = calc_diff(f, g, b);
     if(y1 < y2)
         return 1;
     else if(y1 > y2)
@@ -22,10 +17,10 @@ static int first_derivative_sign(differentiable_function_t f, differentiable_fun
         return 0;
 }
 
-static int second_derivative_sign(differentiable_function_t f, differentiable_function_t g, float a, float b)
+static int second_derivative_sign(real_function_t f, real_function_t g, float a, float b)
 {
     float m = (a + b) / 2;
-    float y1 = calc_F(f, g, a), y2 = calc_F(f, g, m), y3 = calc_F(f, g, b);
+    float y1 = calc_diff(f, g, a), y2 = calc_diff(f, g, m), y3 = calc_diff(f, g, b);
     float y4 = (y1 + y3) / 2;
     if(y2 > y4)
         return -1;
@@ -41,24 +36,24 @@ typedef enum
     DIRECTION_RIGHT // from left to right
 } DIRECTION;
 
-static float chord_method_step(differentiable_function_t f, differentiable_function_t g, float a, float b, DIRECTION dir)
+static float chord_method_step(real_function_t f, real_function_t g, float a, float b, DIRECTION dir)
 {
     if(dir == DIRECTION_LEFT)
     {
-        return b - (a - b) * calc_F(f, g, b) / (calc_F(f, g, a) - calc_F(f, g, b));
+        return b - (a - b) * calc_diff(f, g, b) / (calc_diff(f, g, a) - calc_diff(f, g, b));
     }
     else
     {
-        return a - (b - a) * calc_F(f, g, a) / (calc_F(f, g, b) - calc_F(f, g, a));
+        return a - (b - a) * calc_diff(f, g, a) / (calc_diff(f, g, b) - calc_diff(f, g, a));
     }
 }
 
-static float newton_method_step(differentiable_function_t f, differentiable_function_t g, float x)
+static float newton_method_step(real_function_t f, real_function_t f_der, real_function_t g, real_function_t g_der, float x)
 {
-    return x - calc_F(f, g, x) / calc_F_der(f, g, x);
+    return x - calc_diff(f, g, x) / calc_diff(f_der, g_der, x);
 }
 
-float root(differentiable_function_t f, differentiable_function_t g, float a, float b, float eps, int*steps)
+float root(real_function_t f, real_function_t f_der, real_function_t g, real_function_t g_der, float a, float b, float eps, int*steps)
 {
     if(steps)
         *steps = 0;
@@ -66,7 +61,7 @@ float root(differentiable_function_t f, differentiable_function_t g, float a, fl
     int s1 = first_derivative_sign(f, g, a, b);
     int s2 = second_derivative_sign(f, g, a, b);
 
-    DIRECTION dir = s1 * s2 > 0 ? DIRECTION_RIGHT : DIRECTION_LEFT;
+    DIRECTION dir = s1 * s2 > 0 ? DIRECTION_RIGHT : DIRECTION_LEFT; // direction of chord method
 
     for(int i = 0;; i++)
     {
@@ -79,14 +74,14 @@ float root(differentiable_function_t f, differentiable_function_t g, float a, fl
 
         if(dir == DIRECTION_RIGHT)
         {
-            b = newton_method_step(f, g, b);
+            b = newton_method_step(f, f_der, g, g_der, b);
             if(fabs(b - a) < eps)
                 return a;
             a = chord_method_step(f, g, a, b, dir);
         }
         else
         {
-            a = newton_method_step(f, g, a);
+            a = newton_method_step(f, f_der, g, g_der, a);
             if(fabs(b - a) < eps)
                 return a;
             b = chord_method_step(f, g, a, b, dir);

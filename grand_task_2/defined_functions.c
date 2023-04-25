@@ -92,20 +92,35 @@ static float f12_der(float x)
     return -0.5 / sqrtf(x * x * x);
 }
 
-differentiable_function_t defined_functions[DEFINED_FUNCTIONS_COUNT] = 
+real_function_t defined_functions[DEFINED_FUNCTIONS_COUNT] = 
 {
-    {default_f1, default_f1_derivative},
-    {default_f2, default_f2_derivative},
-    {default_f3, default_f3_derivative},
-    {f4, f4_der},
-    {f5, f5_der},
-    {f6, f6_der},
-    {f7, f7_der},
-    {f8, f8_der},
-    {f9, f9_der},
-    {f10, f10_der},
-    {f11, f11_der},
-    {f12, f12_der}
+    default_f1,
+    default_f2,
+    default_f3,
+    f4, 
+    f5,
+    f6,
+    f7,
+    f8,
+    f9,
+    f10,
+    f11,
+    f12,
+};
+
+real_function_t defined_derivatives[DEFINED_FUNCTIONS_COUNT] = {
+    default_f1_derivative,
+    default_f2_derivative,
+    default_f3_derivative,
+    f4_der,
+    f5_der,
+    f6_der,
+    f7_der,
+    f8_der,
+    f9_der,
+    f10_der,
+    f11_der,
+    f12_der
 };
 
 char* function_formulas[DEFINED_FUNCTIONS_COUNT] = 

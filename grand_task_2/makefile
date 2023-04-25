@@ -1,20 +1,20 @@
 
 all: clc
 
+real_function.h:
+
 default_functions.h:
 default_functions.c: default_functions.h
 default_functions.o: default_functions.c
 	gcc -Wall -c -s default_functions.c -o default_functions.o
 
-differentiable_function_t.h:
-
-root.h: differentiable_function_t.h
+root.h: real_function.h
 root.c: root.h
 
-integral.h: differentiable_function_t.h
+integral.h: real_function.h
 integral.c: integral.h
 
-"defined_functions.h": differentiable_function_t.h
+"defined_functions.h": real_function.h
 "defined_functions.c": defined_functions.h default_functions.h
 
 main.c: defined_functions.h integral.h root.h
