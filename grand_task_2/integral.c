@@ -1,20 +1,19 @@
 #include"integral.h"
 #include<math.h>
-
+#include<stdio.h>
 real_t integral(real_function_t f, real_t a, real_t b, real_t eps, int* steps)
 {
 
     if(steps)
-        *steps = 0;
+        *steps = 1;
 
     real_t F_left = f(a), F_right = f(b);
-
     real_t prev_sum = f((a + b) / 2);
     real_t prev_S = (b - a) / 6 * (F_left + F_right + 4 * prev_sum);
 
-    for(int n = 4; n < 100000; n *= 2)
+    for(int n = 4, k = 1; k < 20; n *= 2, k++)
     {
-
+        
         real_t curr_even = prev_sum;
         real_t curr_odd = 0;
         real_t h = (b - a) / n;
@@ -26,7 +25,7 @@ real_t integral(real_function_t f, real_t a, real_t b, real_t eps, int* steps)
         }
 
         real_t curr_S = h / 3 * (F_left + F_right + 4 * curr_odd + 2 * curr_even);
-
+        
         if(steps)
             (*steps)++;
 
@@ -40,6 +39,9 @@ real_t integral(real_function_t f, real_t a, real_t b, real_t eps, int* steps)
 
     }
 
-    return prev_S;
+    if(steps)
+        *steps = -1;
+
+    return 0;
 }
 

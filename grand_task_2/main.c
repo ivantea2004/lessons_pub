@@ -49,9 +49,9 @@ int main(int argc, char**argv)
         real_t y12 = f1(x12), y13 = f1(x13), y23 = f2(x23);
 
         real_t 
-            I1 = integral(f1, x13, x23, eps2, NULL),
-            I2 = integral(f2, x13, x23, eps2, NULL),
-            I3 = integral(f3, x23, x12, eps2, NULL);
+            I1 = integral(f1, x13, x12, eps2, NULL),
+            I2 = integral(f2, x23, x12, eps2, NULL),
+            I3 = integral(f3, x13, x23, eps2, NULL);
 
         real_t area = I1 - I2 - I3;
 
@@ -132,10 +132,16 @@ int main(int argc, char**argv)
 
         real_t i = integral(defined_functions[f - 1], a, b, eps, &steps);
 
-        if(!with_steps)
-            printf("Calculated integral:\nI = "PRIreal"\n", i);
-        else
+        if(steps < 0)
+        {
+            printf("Could not calculate integral.\n");
+            return 0;
+        }
+
+        if(with_steps)
             printf("Calculated integral:\nsteps = %d\nI = "PRIreal"\n", steps, i);
+        else
+            printf("Calculated integral:\nI = "PRIreal"\n", i);
 
         return 0;
         
@@ -183,10 +189,17 @@ int main(int argc, char**argv)
         int steps;
         real_t r = root(defined_functions[f1 - 1], defined_derivatives[f1 - 1], defined_functions[f2 - 1], defined_derivatives[f2 - 1], a, b, eps, &steps);
 
-        if(!with_steps)
-            printf("Found root:\nx = "PRIreal"\n", r);
-        else
+        if(steps < 0)
+        {
+            printf("Could not find root.\n");
+            return 0;
+        }
+
+        if(with_steps)
             printf("Found root:\nsteps = %d\nx = "PRIreal"\n", steps, r);
+        else
+            printf("Found root:\nx = "PRIreal"\n", r);
+            
         return 0;
     }
     else if(strcmp(argv[1], "-c") == 0 || strcmp(argv[1], "-compute") == 0)

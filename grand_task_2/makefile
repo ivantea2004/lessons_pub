@@ -14,7 +14,7 @@ integral.o: integral.c integral.h real_function.h real.h
 "defined_functions.o": defined_functions.c defined_functions.h default_functions.h real_function.h real.h
 	gcc -Wall -c -s defined_function.c -o defined_functions.o
 
-main.o: defined_functions.h integral.h root.h real_function.h real.h
+main.o: main.c defined_functions.h integral.h root.h real_function.h real.h
 	gcc -Wall -c -s main.c -o main.o
 
 clc: root.o integral.o defined_functions.o main.o default_functions.o

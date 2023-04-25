@@ -66,8 +66,12 @@ real_t root(real_function_t f, real_function_t f_der, real_function_t g, real_fu
     for(int i = 0;; i++)
     {
 
-        if(i > 100)
-            return a;
+        if(i > 1000)
+        {
+            if(steps)
+                *steps = -1;
+            return 0;
+        }
 
         if(steps)
             (*steps)++;
@@ -86,6 +90,9 @@ real_t root(real_function_t f, real_function_t f_der, real_function_t g, real_fu
                 return a;
             b = chord_method_step(f, g, a, b, dir);
         }
+
+        if(steps)
+            (*steps)++;
         
         if(fabs(b - a) < eps)
             return a;
