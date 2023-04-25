@@ -22,6 +22,7 @@
 #define FUNC_INDEX_OUT_OF_RANGE "Function index out of range.\n"
 #define INVALID_FORMAT "Invalid format of arguments.\n"
 #define INVALID_FLAG "Invalid flag. Read help with -help flag.\n"
+#define INVALID_RANGE "Invalid range: <a> is greater then <b>.\n"
 
 int main(int argc, char**argv)
 {
@@ -32,8 +33,6 @@ int main(int argc, char**argv)
         float a12 = 1, b12 = 1.5; // range where x12 is located
         float a13 = -1.4, b13 = -1; // x13
         float a23 = 0.5, b23 = 1; // x23
-
-        //differentiable_function_t f1 = defined_functions[0], f2 = defined_functions[1], f3 = defined_functions[2];
 
         real_function_t 
             f1 = defined_functions[0],
@@ -46,12 +45,37 @@ int main(int argc, char**argv)
         float x12 = root(f1, f1_der, f2, f2_der, a12, b12, eps1, NULL);
         float x13 = root(f1, f1_der, f3, f3_der, a13, b13, eps1, NULL);
         float x23 = root(f2, f2_der, f3, f3_der, a23, b23, eps1, NULL);
+        
+        float y12 = f1(x12), y13 = f1(x13), y23 = f2(x23);
 
-        printf("x12=%f\nx13=%f\nx23=%f\n", x12, x13, x23);
+        float 
+            I1 = integral(f1, x13, x23, eps2, NULL),
+            I2 = integral(f2, x13, x23, eps2, NULL),
+            I3 = integral(f3, x23, x12, eps2, NULL);
 
-        float area = integral(f1, x13, x23, eps2, NULL) - integral(f2, x13, x23, eps2, NULL) - integral(f3, x23, x12, eps2, NULL);
+        float area = I1 - I2 - I3;
 
-        printf("S=%f\n", area);
+        printf(
+            "Finding area of figure between curves:\n"
+            "1: %s\n"
+            "2: %s\n"
+            "3: %s\n"
+            "Found intersection x12 = %f, y12 = %f\n"
+            "Found intersection x13 = %f, y13 = %f\n"
+            "Found intersection x23 = %f, y23 = %f\n"
+            "Calcualted I1 = %f\n"
+            "Calculated I2 = %f\n"
+            "Calculated I3 = %f\n"
+            "Area = %f\n",
+            function_formulas[0],
+            function_formulas[1],
+            function_formulas[2],
+            x12, y12,
+            x13, y13,
+            x23, y23,
+            I1, I2, I3,
+            area
+        );
 
         return 0;
     }
@@ -98,14 +122,20 @@ int main(int argc, char**argv)
             return 0;            
         }
 
+        if(a > b)
+        {
+            printf(INVALID_RANGE);
+            return 0;
+        }
+
         int steps;
 
         float i = integral(defined_functions[f - 1], a, b, eps, &steps);
 
         if(!with_steps)
-            printf("%f\n", i);
+            printf("Calculated integral:\nI = %f\n", i);
         else
-            printf("steps=%d\nvalue=%f\n", steps, i);
+            printf("Calculated integral:\nsteps = %d\nI = %f\n", steps, i);
 
         return 0;
         
@@ -143,13 +173,20 @@ int main(int argc, char**argv)
             printf(FUNC_INDEX_OUT_OF_RANGE);
             return 0;
         }
+
+        if(a > b)
+        {
+            printf(INVALID_RANGE);
+            return 0;
+        }
+
         int steps;
         float r = root(defined_functions[f1 - 1], defined_derivatives[f1 - 1], defined_functions[f2 - 1], defined_derivatives[f2 - 1], a, b, eps, &steps);
 
         if(!with_steps)
-            printf("%f\n", r);
+            printf("Found root:\nx = %f\n", r);
         else
-            printf("steps=%d\nvalue=%f\n", steps, r);
+            printf("Found root:\nsteps = %d\nx = %f\n", steps, r);
         return 0;
     }
     else if(strcmp(argv[1], "-c") == 0 || strcmp(argv[1], "-compute") == 0)
@@ -176,7 +213,7 @@ int main(int argc, char**argv)
             return 0;
         }
         float y = defined_functions[f - 1](x);
-        printf("%f\n", y);
+        printf("f(x) = %f\n", y);
     }
     else if(strcmp(argv[1], "-f") == 0 || strcmp(argv[1], "-formula") == 0)
     {
@@ -204,6 +241,7 @@ int main(int argc, char**argv)
     {
         for(int i = 0; i < DEFINED_FUNCTIONS_COUNT; i++)
             printf("%d: %s\n", i + 1, function_formulas[i]);
+        return 0;
     }
     else
     {
