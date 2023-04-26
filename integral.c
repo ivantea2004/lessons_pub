@@ -1,6 +1,7 @@
 #include"integral.h"
 #include<math.h>
-#include<stdio.h>
+
+// calculated integral of f ob [a, b] with precision eps by Simpson method
 real_t integral(real_function_t f, real_t a, real_t b, real_t eps, int* steps)
 {
 

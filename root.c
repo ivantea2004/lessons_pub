@@ -53,6 +53,7 @@ static real_t newton_method_step(real_function_t f, real_function_t f_der, real_
     return x - calc_diff(f, g, x) / calc_diff(f_der, g_der, x);
 }
 
+// calculated root of (f(x) - g(x)) == 0 equation with precision eps by combined method
 real_t root(real_function_t f, real_function_t f_der, real_function_t g, real_function_t g_der, real_t a, real_t b, real_t eps, int*steps)
 {
     if(steps)
