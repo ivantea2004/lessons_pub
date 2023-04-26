@@ -114,6 +114,17 @@ static real_t f14_der(real_t x)
     return -1 / (x * x);
 }
 
+
+static real_t f15(real_t x)
+{
+    return 3 * x * x + 2;
+}
+
+static real_t f15_der(real_t x)
+{
+    return 6 * x;
+}
+
 real_function_t defined_functions[DEFINED_FUNCTIONS_COUNT] = 
 {
     default_f1,
@@ -129,7 +140,8 @@ real_function_t defined_functions[DEFINED_FUNCTIONS_COUNT] =
     f11,
     f12,
     f13,
-    f14
+    f14,
+    f15
 };
 
 real_function_t defined_derivatives[DEFINED_FUNCTIONS_COUNT] = {
@@ -146,7 +158,8 @@ real_function_t defined_derivatives[DEFINED_FUNCTIONS_COUNT] = {
     f11_der,
     f12_der,
     f13_der,
-    f14_der
+    f14_der,
+    f15_der
 };
 
 char* function_formulas[DEFINED_FUNCTIONS_COUNT] = 
@@ -164,5 +177,6 @@ char* function_formulas[DEFINED_FUNCTIONS_COUNT] =
     "y = 2(lnx)/x",
     "y = 1/sqrt(x)",
     "y  = x",
-    "y = 1/x"
+    "y = 1/x",
+    "y = 3x^2 + 2"
 };

@@ -4,7 +4,7 @@
 
 #include"real_function.h"
 
-#define DEFINED_FUNCTIONS_COUNT 14
+#define DEFINED_FUNCTIONS_COUNT 15
 
 extern real_function_t defined_functions[DEFINED_FUNCTIONS_COUNT];
 extern real_function_t defined_derivatives[DEFINED_FUNCTIONS_COUNT];
