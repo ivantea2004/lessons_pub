@@ -93,6 +93,27 @@ static real_t f12_der(real_t x)
     return -0.5 / sqrt(x * x * x);
 }
 
+static real_t f13(real_t x)
+{
+    return x;
+}
+
+static real_t f13_der(real_t x)
+{
+    return 1;
+}
+
+
+static real_t f14(real_t x)
+{
+    return 1 / x;
+}
+
+static real_t f14_der(real_t x)
+{
+    return -1 / (x * x);
+}
+
 real_function_t defined_functions[DEFINED_FUNCTIONS_COUNT] = 
 {
     default_f1,
@@ -107,6 +128,8 @@ real_function_t defined_functions[DEFINED_FUNCTIONS_COUNT] =
     f10,
     f11,
     f12,
+    f13,
+    f14
 };
 
 real_function_t defined_derivatives[DEFINED_FUNCTIONS_COUNT] = {
@@ -121,7 +144,9 @@ real_function_t defined_derivatives[DEFINED_FUNCTIONS_COUNT] = {
     f9_der,
     f10_der,
     f11_der,
-    f12_der
+    f12_der,
+    f13_der,
+    f14_der
 };
 
 char* function_formulas[DEFINED_FUNCTIONS_COUNT] = 
@@ -137,5 +162,7 @@ char* function_formulas[DEFINED_FUNCTIONS_COUNT] =
     "y = (x + 2)^2",
     "y = sinx + 4",
     "y = 2(lnx)/x",
-    "y = 1/sqrt(x)"
+    "y = 1/sqrt(x)",
+    "y  = x",
+    "y = 1/x"
 };
